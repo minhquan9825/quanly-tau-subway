@@ -59,9 +59,9 @@
 ### SLIDE 5: THIẾT KẾ CƠ SỞ DỮ LIỆU & LƯỢC ĐỒ QUAN HỆ (DATABASE & ERD)
 * **Tiêu đề chính:** Thiết Kế Cơ Sở Dữ Liệu 11 Bảng Chuẩn Hóa 3NF
 * **Bullet points:**
-  - Chuẩn hóa cấu trúc 11 bảng loại bỏ dư thừa dữ liệu: `TuyenTau`, `NhaGa`, `ChiTietTuyen`, `Tau`, `ToaTau`, `BaoTri`, `LichTrinh`, `ChuyenTau`, `HanhKhach`, `Ve`, `NhanVien`.
-  - Khóa chính, khóa ngoại (PK-FK) liên kết chặt chẽ, ràng buộc toàn vẹn cha-con với quy tắc `ON DELETE / UPDATE` phù hợp.
-  - Tối ưu hóa lưu trữ lịch sử bảo trì kỹ thuật, hành trình di chuyển và danh mục khách hàng thân thiết theo CCCD/SĐT.
+  - Chuẩn hóa cấu trúc 11 bảng chuẩn 3NF: `Tuyen`, `Ga`, `Tuyen_Ga`, `Tau`, `ToaTau`, `BaoTri`, `LichTrinh`, `ChuyenTau`, `NhanVien`, `HanhKhach`, `Ve`.
+  - Khóa chính, khóa ngoại liên kết chặt chẽ theo 5 khối nghiệp vụ: Hạ tầng, Phương tiện, Vận hành, Quản trị nhân sự và Thương mại POS.
+  - Phân định rõ trách nhiệm nhân sự qua 3 luồng vận hành then chốt: Kỹ thuật bảo trì tàu (`BaoTri`), Lái tàu điều khiển chuyến (`ChuyenTau`), Thu ngân xuất vé (`Ve`).
 * **Visual / Layout:** **[VỊ TRÍ CHÈN ẢNH CHỤP SƠ ĐỒ THỰC THỂ LIÊN KẾT ERD THỰC TẾ]** (Kích thước lớn, rõ nét các liên kết 1-nhiều).
 
 ---
@@ -145,18 +145,18 @@
 
 ## 📚 PHẦN 2: DỮ LIỆU ĐẶC TẢ CHI TIẾT ĐỂ AI THAM CHIẾU (DATA SPECS)
 
-### 1. Danh mục 11 Bảng CSDL (3NF Database Catalog)
-1. `TuyenTau (MaTuyen, TenTuyen, GaDau, GaCuoi, TrangThai)`: Quản lý danh mục các tuyến metro.
-2. `NhaGa (MaGa, TenGa, DiaChi, TrangThai)`: Quản lý danh mục các nhà ga dừng đỗ.
-3. `ChiTietTuyen (MaTuyen, MaGa, ThuTu, KhoangCach)`: Thứ tự các ga và khoảng cách km trên từng tuyến.
-4. `Tau (MaTau, TenTau, LoaiTau, SucChua, TrangThai)`: Danh mục đoàn tàu và trạng thái an toàn.
-5. `ToaTau (MaToa, MaTau, SoToa, SoGhe, LoaiToa)`: Chi tiết từng toa của đoàn tàu.
-6. `BaoTri (MaBaoTri, MaTau, NgayBaoTri, NoiDung, ChiPhi, TrangThai)`: Lịch sử và chi phí bảo dưỡng.
-7. `LichTrinh (MaLichTrinh, MaTuyen, MaTau, GioKhoiHanh, GioDen, NgayTrongTuan, TrangThai)`: Khung giờ chạy định kỳ.
-8. `ChuyenTau (MaChuyen, MaLichTrinh, NgayKhoiHanh, TrangThai, SoGheTrong)`: Các chuyến chạy cụ thể theo ngày thực tế.
-9. `HanhKhach (MaHK, HoTen, SoDienThoai, CCCD, LoaiHK)`: Hồ sơ khách hàng thân thiết.
-10. `Ve (MaVe, MaChuyen, MaHK, GaDi, GaDen, SoGhe, GiaVe, NgayBan, TrangThai)`: Lịch sử bán vé và thông tin cước.
-11. `NhanVien (MaNV, HoTen, ChucVu, SoDienThoai, TaiKhoan, MatKhau, Quyen, TrangThai)`: Danh mục nhân sự và tài khoản hệ thống.
+### 1. Danh mục 11 Bảng CSDL (Khớp 100% Sơ đồ ERD thực tế)
+1. `Tuyen (MaTuyen, TenTuyen, MaGaDau, MaGaCuoi, TrangThai)`: Quản lý danh mục các tuyến metro, trỏ về ga đầu và ga cuối.
+2. `Ga (MaGa, TenGa, DiaChi, KhuVuc, TrangThai)`: Quản lý danh mục các nhà ga dừng đỗ và khu vực.
+3. `Tuyen_Ga (MaTuyen, MaGa, ThuTu, PhutDung)`: Bảng trung gian liên kết tuyến và ga, lưu thứ tự dừng đỗ và thời gian tàu đỗ (phút).
+4. `Tau (MaTau, TenTau, LoaiTau, SucChua, MaTuyen, TrangThai)`: Danh mục đoàn tàu, sức chứa và tuyến hoạt động.
+5. `ToaTau (MaToa, MaTau, SoThuTu, LoaiToa, SucChua)`: Chi tiết từng toa của đoàn tàu.
+6. `BaoTri (MaBT, MaTau, NgayBatDau, NgayKetThuc, NoiDung, ChiPhi, MaNV, TrangThai)`: Lịch sử bảo dưỡng kỹ thuật do nhân viên kỹ thuật phụ trách.
+7. `LichTrinh (MaLich, MaTuyen, MaTau, GioDi, GioDen, ThuTrongTuan, TrangThai)`: Khung giờ chạy định kỳ theo thứ trong tuần.
+8. `ChuyenTau (MaChuyen, MaLich, NgayChay, MaLaiTau, TrangThai)`: Chuyến tàu thực tế trong ngày, phân công nhân viên lái tàu.
+9. `NhanVien (MaNV, HoTen, ChucVu, TenDangNhap, MatKhau, DienThoai, TrangThai)`: Danh mục nhân sự, tài khoản và vai trò trong hệ thống.
+10. `HanhKhach (MaHK, HoTen, CCCD, DienThoai)`: Hồ sơ khách hàng lưu CCCD và số điện thoại.
+11. `Ve (MaVe, MaChuyen, MaHK, MaGaDi, MaGaDen, LoaiVe, Gia, NgayMua, MaNVBan, TrangThai)`: Lịch sử bán vé, liên kết chuyến, khách hàng, chặng ga di chuyển và thu ngân xuất vé.
 
 ### 2. Thông tin tài khoản kiểm thử mặc định
 * `admin` / `123456`: Toàn quyền quản trị hệ thống.

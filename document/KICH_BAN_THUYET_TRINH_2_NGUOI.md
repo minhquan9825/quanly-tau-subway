@@ -52,13 +52,35 @@ flowchart LR
 > *- **Tầng Business Logic & Data Access (DAL):** Được đóng gói tập trung trong module `Ketnoi_CSDL.cs`, thực thi truy vấn an toàn và loại bỏ 100% rủi ro SQL Injection thông qua cơ chế SqlParameter.*  
 > *- **Tầng Database:** Vận hành trên Microsoft SQL Server với chuẩn hóa 3NF.*  
 >
-> *Kính mời Thầy/Cô quan sát trên màn hình Slide là **Lược đồ quan hệ thực thể (ERD)** của hệ thống [Chỉ vào hình ảnh ERD trên Slide].*  
-> *Cơ sở dữ liệu được tổ chức chặt chẽ thành **11 bảng**:*  
-> *- Khối hạ tầng gồm `TuyenTau`, `NhaGa` và bảng liên kết `ChiTietTuyen` lưu thứ tự ga và khoảng cách km.*  
-> *- Khối phương tiện gồm `Tau`, `ToaTau` và bảng lịch sử `BaoTri`.*  
-> *- Khối vận hành gồm `LichTrinh` cố định theo tuần và `ChuyenTau` thực tế theo ngày.*  
-> *- Khối thương mại gồm `HanhKhach` và `Ve` bán ra.*  
-> *- Khối quản trị gồm bảng `NhanVien` tích hợp tài khoản và quyền hạn.*  
+> *Kính mời quý Thầy/Cô quan sát trên màn hình, đây là **Lược đồ quan hệ thực thể (ERD)** hoàn chỉnh của hệ thống [Chỉ vào hình ảnh ERD trên Slide].*  
+> *Cơ sở dữ liệu của chúng em được chuẩn hóa đạt chuẩn 3NF, gồm **11 bảng** được liên kết chặt chẽ và chia thành 5 khối nghiệp vụ chính:*  
+>
+> *1. **Khối Hạ tầng Tuyến & Nhà ga** (gồm 3 bảng: `Tuyen`, `Ga`, `Tuyen_Ga`):*  
+> *- Bảng `Tuyen` và `Ga`: Bảng `Tuyen` xác định thông tin tuyến metro và có 2 khóa ngoại liên kết trực tiếp về ga đầu (`MaGaDau`) và ga cuối (`MaGaCuoi`) trong bảng `Ga`.*  
+> *- Bảng trung gian `Tuyen_Ga`: Giải quyết quan hệ nhiều - nhiều giữa Tuyến và Ga, lưu trữ thứ tự đón/trả khách (`ThuTu`) và thời gian tàu dừng đỗ (`PhutDung`) tại từng nhà ga.*  
+>
+> *2. **Khối Phương tiện & Kỹ thuật Bảo trì** (gồm 3 bảng: `Tau`, `ToaTau`, `BaoTri`):*  
+> *- Bảng `Tau`: Quản lý các đoàn tàu, sức chứa và được gán trực tiếp chạy trên tuyến nào thông qua khóa ngoại `MaTuyen`.*  
+> *- Bảng `ToaTau`: Quản lý chi tiết từng toa theo số thứ tự (`SoThuTu`), loại toa và sức chứa.*  
+> *- Bảng `BaoTri`: Ghi nhận lịch sử bảo dưỡng kỹ thuật của tàu từ ngày bắt đầu đến kết thúc (`NgayBatDau`, `NgayKetThuc`), nội dung bảo trì, kinh phí (`ChiPhi`) và trạng thái an toàn.*  
+>
+> *3. **Khối Vận hành Lịch trình & Chuyến tàu** (gồm 2 bảng: `LichTrinh`, `ChuyenTau`):*  
+> *- Bảng `LichTrinh`: Thiết lập khung giờ chạy cố định (`GioDi`, `GioDen`) theo các thứ trong tuần (`ThuTrongTuan`) cho từng đoàn tàu trên từng tuyến.*  
+> *- Bảng `ChuyenTau`: Được sinh ra từ lịch trình (`sinh ra chuyen`), biểu diễn chuyến tàu vận hành thực tế trong ngày (`NgayChay`).*  
+>
+> *4. **Khối Quản trị Nhân sự & Phân công Vận hành** (bảng `NhanVien`):*  
+> *- Bảng `NhanVien`: Đóng vai trò hạt nhân trong quản lý người dùng (tài khoản, mật khẩu, chức vụ) và phân định trách nhiệm.*  
+> *- Điểm đắt giá trên sơ đồ ERD là `NhanVien` liên kết trực tiếp vào 3 quy trình vận hành then chốt:*  
+>   *+ Nhân viên kỹ thuật thực hiện bảo trì tàu (`thuc hien (KyThuat)` qua `MaNV` trong bảng `BaoTri`).*  
+>   *+ Nhân viên lái tàu được phân công điều khiển chuyến thực tế (`lai (LaiTau)` qua `MaLaiTau` trong bảng `ChuyenTau`).*  
+>   *+ Nhân viên thu ngân trực tiếp bán vé cho khách (`ban ve` qua `MaNVBan` trong bảng `Ve`).*  
+>
+> *5. **Khối Thương mại Bán vé & Hành khách** (gồm 2 bảng: `HanhKhach`, `Ve`):*  
+> *- Bảng `HanhKhach`: Quản lý hồ sơ định danh của khách hàng (Họ tên, CCCD, Điện thoại).*  
+> *- Bảng `Ve`: Là trung tâm của giao dịch POS, liên kết đa chiều:*  
+>   *Vé thuộc về chuyến tàu nào (`MaChuyen`), ai mua (`MaHK`), đi từ ga nào đến ga nào (`MaGaDi`, `MaGaDen` trỏ về bảng `Ga`), nhân viên nào bán (`MaNVBan`), cùng giá vé và ngày mua thời gian thực.*  
+>
+> *Nhờ cấu trúc liên kết toàn vẹn này, cơ sở dữ liệu đảm bảo không xảy ra dư thừa dữ liệu, đồng thời truy vết được dòng tiền và trách nhiệm vận hành của từng bộ phận một cách tuyệt đối minh bạch.*  
 >
 > *Đặc biệt, hệ thống khai thác sức mạnh của **5 Stored Procedures cốt lõi**: `sp_DangNhap` xác thực tài khoản phân quyền; `sp_SinhChuyen` tự động sinh các chuyến tàu hàng ngày chống trùng lặp; `sp_BaoCaoDoanhThu`, `sp_DoanhThuTheoTuyen` và `sp_ChiPhiBaoTri` hỗ trợ thống kê tài chính thời gian thực."*
 
