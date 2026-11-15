@@ -1,264 +1,193 @@
-# KỊCH BẢN PHÂN VAI THUYẾT TRÌNH 2 NGƯỜI (PRESENTATION SCRIPT)
-## DỰ ÁN: HỆ THỐNG QUẢN LÝ TÀU ĐIỆN ĐÔ THỊ (SUBWAY MANAGEMENT SYSTEM)
+# KỊCH BẢN THUYẾT TRÌNH VÀ HƯỚNG DẪN LIVE DEMO LIÊN TỤC
+## ĐỀ TÀI: HỆ THỐNG QUẢN LÝ TÀU ĐIỆN ĐÔ THỊ (SUBWAY MANAGEMENT SYSTEM)
 
-> **Thời lượng đề xuất:** 10 - 15 phút (Bao gồm Slide + Live Demo)  
-> **Tài liệu nạp trực tiếp vào NotebookLM / Gemini để tự động tạo Slide thuyết trình và thẻ ghi nhớ (Flashcards/Speaker Notes).**
-
----
-
-## 👥 1. BẢNG PHÂN VAI VÀ TRÁCH NHIỆM
-
-| Vai Trò | Thành Viên | Trọng Tâm Trình Bày | Phong Thái / Tác Phong |
-| :--- | :--- | :--- | :--- |
-| **NGƯỜI 1**<br>*(Presenter 1)* | **Business Analyst (BA) & Product Owner** | • Mở đầu & Giới thiệu đề tài<br>• Bối cảnh bài toán & Mục tiêu nghiệp vụ<br>• Tổng quan 15 Form & Ma trận phân quyền RBAC<br>• **Live Demo**: Phân hệ Bán vé POS, Tra cứu & Hủy vé, Hành khách<br>• Báo cáo thống kê Dashboard & Tổng kết giá trị dự án | Chững chạc, lưu loát, tập trung vào trải nghiệm người dùng, giá trị thực tiễn và quy trình dịch vụ hành khách. |
-| **NGƯỜI 2**<br>*(Presenter 2)* | **Tech Lead & System Architect** | • Kiến trúc phần mềm phân tầng (3-Tier)<br>• Thiết kế CSDL 11 bảng chuẩn 3NF & Lược đồ ERD<br>• Hệ thống 5 Stored Procedures mở rộng<br>• **Live Demo**: Phân hệ Hạ tầng, Lịch trình, Tự động sinh chuyến, Kỹ thuật bảo trì tàu<br>• Điểm sáng công nghệ (ACID Transaction, chống SQL Injection, UTF-8 BOM, fix WinForms layout)<br>• Định hướng nâng cấp (Roadmap) | Vững vàng, khúc chiết, tự tin làm chủ công nghệ, mã nguồn và kiến trúc cơ sở dữ liệu. |
+> **Mục đích:** Tài liệu dành cho các thành viên trong nhóm trực tiếp cầm theo để tham khảo khi thuyết trình và thực hành demo trước Hội đồng.  
+> **Đặc điểm kịch bản:**  
+> - **Mạch trình bày 1 chiều xuyên suốt (Linear Flow):** Trình bày toàn bộ lý thuyết, BA, kiến trúc 3 tầng, CSDL ERD, tính năng và giải pháp kỹ thuật trên Slide ➔ Sau đó chuyển hẳn sang ứng dụng thực tế để **Live Demo 1 mạch liên tục từ A đến Z** ➔ Cuối cùng quay lại kết luận và Q&A.  
+> - **Không phân vai cứng nhắc:** Văn bản viết trung tính dưới dạng `[Diễn giả thuyết trình]`, nhóm có thể linh hoạt phân đoạn bất kỳ ai nói phần nào mà không làm đứt gãy luồng trình bày.  
+> - **Live Demo tối ưu:** Từng thao tác click chuột, chọn giá trị mẫu và thông báo đều được chỉ dẫn chi tiết, tránh hoàn toàn rủi ro thao tác sai khi demo.
 
 ---
 
-## ⏱️ 2. DÀN Ý THUYẾT TRÌNH THEO SLIDE & THỜI LƯỢNG
+## ⏱️ DÀN Ý TIẾN TRÌNH THỜI GIAN (TỔNG: 10 - 12 PHÚT)
 
 ```mermaid
 flowchart LR
-    S1["Slide 1-3\n(Người 1: 2.5 phút)\nMở đầu, Bối cảnh,\nMục tiêu & Phân hệ"] --> S2["Slide 4-6\n(Người 2: 3 phút)\nKiến trúc 3-Tier,\nCSDL ERD, RBAC"]
-    S2 --> S3["Slide 7-8\n(Cả 2: 5 phút)\nLIVE DEMO\n(Người 2: Kỹ thuật\nNgười 1: Bán vé POS)"]
-    S3 --> S4["Slide 9-12\n(Người 2 & 1: 3 phút)\nGiải pháp kỹ thuật,\nRoadmap & Kết luận"]
+    A["1. Lý thuyết & Bối cảnh BA\n(Slide 1 - 3)\n~ 2 phút"] --> B["2. Kiến trúc & CSDL ERD\n(Slide 4 - 6)\n~ 2.5 phút"]
+    B --> C["3. Tính năng & Giải pháp kỹ thuật\n(Slide 7 - 9)\n~ 2 phút"]
+    C --> D["4. LIVE DEMO LIÊN TỤC\n(Trực tiếp trên App)\n~ 4 - 5 phút"]
+    D --> E["5. Roadmap & Kết luận\n(Slide 10 - 12)\n~ 1.5 phút"]
 ```
 
 ---
 
-## 🎙️ 3. KỊCH BẢN CHI TIẾT TỪNG SLIDE (WORD-FOR-WORD SCRIPT)
+## 🎙️ KỊCH BẢN THUYẾT TRÌNH CHI TIẾT THEO MẠCH XUYÊN SUỐT
 
 ---
 
-### SLIDE 1: TRANG TIÊU ĐỀ & GIỚI THIỆU NHÓM (0.5 phút)
-* **Tiêu đề Slide**: Hệ Thống Quản Lý Tàu Điện Đô Thị (Subway Management System)
-* **Nội dung hiển thị**: Tên dự án, Công nghệ áp dụng (C# WinForms .NET 4.7.2, SQL Server), Thông tin giảng viên hướng dẫn & thành viên nhóm.
+### PHẦN 1: MỞ ĐẦU & BỐI CẢNH BÀI TOÁN NGHIỆP VỤ (SLIDE 1 - 3)
 
-**🎤 NGƯỜI 1 trình bày:**
-> *"Kính chào quý Thầy/Cô trong Hội đồng và các bạn sinh viên có mặt trong buổi báo cáo hôm nay.  
-> Nhóm chúng em gồm 2 thành viên: Em là **[Tên Người 1]** - đảm nhận vai trò phân tích nghiệp vụ và trải nghiệm sản phẩm, và bạn **[Tên Người 2]** - đảm nhận vai trò kiến trúc hệ thống và phát triển kỹ thuật.  
-> Hôm nay, nhóm chúng em xin trân trọng giới thiệu đề tài: **Hệ thống Quản lý Tàu điện Đô thị (Subway Management System)** - một giải pháp phần mềm toàn diện nhằm tự động hóa và nâng cao năng lực vận hành đường sắt đô thị hiện đại."*
-
----
-
-### SLIDE 2: BỐI CẢNH ĐÔ THỊ & BÀI TOÁN THỰC TẾ (1 phút)
-* **Tiêu đề Slide**: Bối Cảnh Thực Tiễn & Nhu Cầu Chuyển Đổi Số Metro
-* **Nội dung hiển thị**:
-  - Tốc độ đô thị hóa nhanh, nhu cầu di chuyển bằng metro/subway tăng vọt (VD: Tuyến Metro Bến Thành - Suối Tiên, Cát Linh - Hà Đông).
-  - Khó khăn trong vận hành thủ công: Dễ trùng lặp lịch chạy tàu, kiểm soát bảo dưỡng thiếu đồng bộ, quầy vé ùn tắc giờ cao điểm.
-  - Giải pháp: Tin học hóa toàn diện từ quản lý hạ tầng ray, điều phối đoàn tàu, sinh chuyến tự động đến bán vé thông minh tại quầy.
-
-**🎤 NGƯỜI 1 trình bày:**
-> *"Thưa Thầy Cô, khi các tuyến tàu điện ngầm và đường sắt đô thị bắt đầu đi vào vận hành thực tế, khối lượng công việc quản lý là vô cùng khổng lồ: hàng trăm chuyến tàu mỗi ngày phải chạy đúng từng phút, các đoàn tàu phải bảo dưỡng nghiêm ngặt theo giờ quy định, và tại các nhà ga, hàng ngàn lượt khách mua vé mỗi giờ.  
-> Nếu quản lý thủ công hoặc dùng các phần mềm rời rạc, doanh nghiệp sẽ gặp 3 bài toán nan giải:  
-> 1. Dễ xảy ra xung đột, trùng lặp lịch trình vận hành.  
-> 2. Khó giám sát tình trạng kỹ thuật và lịch sử sửa chữa đoàn tàu.  
-> 3. Quầy bán vé dễ ùn tắc do việc tính giá vé chặng thủ công mất thời gian.  
-> Xuất phát từ thực tế đó, nhóm chúng em đã nghiên cứu và phát triển phần mềm **Subway Management System** để giải quyết trọn vẹn chuỗi bài toán này."*
+**[Diễn giả thuyết trình]:**
+> *"Kính chào quý Thầy/Cô trong Hội đồng và các bạn sinh viên có mặt trong buổi báo cáo hôm nay.*  
+> *Đại diện cho nhóm, em xin trân trọng giới thiệu đề tài tốt nghiệp/báo cáo học phần: **Hệ thống Quản lý Tàu điện Đô thị (Subway Management System)** - được xây dựng trên nền tảng **C# Windows Forms (.NET 4.7.2)** và hệ quản trị cơ sở dữ liệu **Microsoft SQL Server**.*  
+>
+> *Thưa Thầy/Cô, trong các đô thị phát triển như TP.HCM với tuyến Metro Bến Thành - Suối Tiên, hệ thống đường sắt đô thị giữ vai trò huyết mạch. Tuy nhiên, việc vận hành thực tế đối mặt với 3 thách thức lớn:*  
+> *1. **Lịch trình chạy tàu:** Đòi hỏi độ chuẩn xác tuyệt đối đến từng phút, không được phép chồng chéo.*  
+> *2. **An toàn kỹ thuật:** Mỗi đoàn tàu trước khi lăn bánh phải được kiểm định, bảo dưỡng nghiêm ngặt; mọi hỏng hóc phải cập nhật trạng thái tức thời.*  
+> *3. **Áp lực quầy vé POS:** Vào các khung giờ cao điểm, lượng khách đổ về rất lớn, yêu cầu nhân viên phải xuất vé trong vài giây, tự động tính cước theo chặng và hỗ trợ chính sách miễn giảm linh hoạt.*  
+>
+> *Từ bài toán đó, nhóm chúng em đã phân tích và thiết kế hệ thống với **mô hình phân quyền 4 vai trò (RBAC)** rõ ràng:*  
+> *- **Admin:** Toàn quyền quản trị danh mục, nhân sự và theo dõi báo cáo doanh thu.*  
+> *- **Nhân viên Bán vé:** Sử dụng giao diện POS chuyên trách để bán vé, tra cứu và xử lý hủy vé.*  
+> *- **Nhân viên Kỹ thuật:** Giám sát đoàn tàu, lập phiếu bảo dưỡng định kỳ.*  
+> *- **Lái tàu:** Tra cứu lịch trình phân công công tác trên tuyến."*
 
 ---
 
-### SLIDE 3: TỔNG QUAN PHẠM VI 15 MÀN HÌNH CHỨC NĂNG (1 phút)
-* **Tiêu đề Slide**: Cấu Trúc Hệ Thống & 15 Màn Hình Chức Năng (Forms)
-* **Nội dung hiển thị**: Sơ đồ phân chia 4 phân hệ chính:
-  1. **Hạ tầng đô thị**: Quản lý tuyến tàu (`FrmQuanLyTuyen`), Chi tiết ga dừng (`FrmChiTietTuyen`), Danh mục ga (`FrmQuanLyGa`).
-  2. **Phương tiện & Kỹ thuật**: Đoàn tàu (`FrmQuanLyTau`), Chi tiết toa tàu (`FrmChiTietTau`), Lệnh bảo trì (`FrmBaoTri`).
-  3. **Vận hành & Dịch vụ**: Lịch trình định kỳ (`FrmLichTrinh`), Chuyến tàu thực tế (`FrmChuyenTau`), Bán vé POS (`FrmBanVe`), Tra cứu & hủy vé (`FrmTraCuuVe`), Hồ sơ khách hàng (`FrmHanhKhach`).
-  4. **Quản trị & Báo cáo**: Xác thực đăng nhập (`FrmDangNhap`), Dashboard tổng quan (`FrmTrangChu`), Nhân sự (`FrmNhanVien`), Báo cáo 3 Tab (`FrmBaoCao`).
+### PHẦN 2: KIẾN TRÚC KỸ THUẬT & CƠ SỞ DỮ LIỆU (SLIDE 4 - 6)
 
-**🎤 NGƯỜI 1 trình bày:**
-> *"Hệ thống được thiết kế theo đúng quy chuẩn nghiệp vụ thực tế với trọn vẹn **15 màn hình chức năng**, phân bổ thành 4 phân hệ liên kết chặt chẽ: từ quản lý hạ tầng mạng lưới ga ray, đội tàu và bảo trì kỹ thuật, đến hệ thống lập lịch tự động, quầy bán vé POS và trung tâm báo cáo doanh thu quản trị.  
-> Sau đây, em xin phép nhường lời cho bạn **[Tên Người 2]** để trình bày sâu hơn về nền tảng kiến trúc kỹ thuật và mô hình cơ sở dữ liệu của dự án."*
-
-*(Người 1 chuyển micro / slide cho Người 2)*
-
----
-
-### SLIDE 4: KIẾN TRÚC HỆ THỐNG PHÂN TẦNG (3-TIER ARCHITECTURE) (1 phút)
-* **Tiêu đề Slide**: Kiến Trúc Phần Mềm 3 Tầng (Layered Architecture)
-* **Nội dung hiển thị**: Sơ đồ 3 tầng: Presentation Layer (15 Forms WinForms) ➔ Data Access Layer (`Ketnoi_CSDL` Singleton, Parameterized Queries) ➔ Database Layer (SQL Server).
-
-**🎤 NGƯỜI 2 trình bày:**
-> *"Xin cảm ơn bạn [Tên Người 1]. Kính thưa Thầy/Cô, để đảm bảo hệ thống có độ ổn định cao, bảo mật và dễ mở rộng, nhóm đã lựa chọn kiến trúc **3 tầng (3-Tier)**:  
-> - **Tầng Giao diện (Presentation Layer)**: Gồm 15 Forms Windows Forms thiết kế theo ngôn ngữ phẳng hiện đại, tối ưu cho nhân viên thao tác phím tắt cực nhanh.  
-> - **Tầng Truy xuất Dữ liệu (Data Access Layer)**: Đóng gói tập trung trong lớp `Ketnoi_CSDL` theo mẫu thiết kế Singleton. Toàn bộ câu lệnh đều sử dụng `SqlParameter` và Stored Procedures, đảm bảo chống tấn công SQL Injection 100%. Lớp này đồng thời quản lý phiên làm việc toàn cục `NguoiDungHienTai`.  
-> - **Tầng Cơ sở Dữ liệu (Database Layer)**: Sử dụng Microsoft SQL Server, đảm bảo toàn vẹn dữ liệu giao dịch thông qua các khóa ràng buộc và Stored Procedures tối ưu."*
+**[Diễn giả thuyết trình]:**
+> *"Để đáp ứng yêu cầu vận hành bền bỉ và bảo mật, hệ thống được thiết kế theo **Kiến trúc phân tầng 3-Tier** chuẩn mực:*  
+> *- **Tầng Presentation:** Gồm 15 Forms Windows Forms được thiết kế trực quan, phân tách module độc lập và kiểm soát validation đầu vào nghiêm ngặt.*  
+> *- **Tầng Business Logic & Data Access (DAL):** Được đóng gói tập trung trong module `Ketnoi_CSDL.cs`, thực thi truy vấn an toàn và loại bỏ 100% rủi ro SQL Injection thông qua cơ chế SqlParameter.*  
+> *- **Tầng Database:** Vận hành trên Microsoft SQL Server với chuẩn hóa 3NF.*  
+>
+> *Kính mời Thầy/Cô quan sát trên màn hình Slide là **Lược đồ quan hệ thực thể (ERD)** của hệ thống [Chỉ vào hình ảnh ERD trên Slide].*  
+> *Cơ sở dữ liệu được tổ chức chặt chẽ thành **11 bảng**:*  
+> *- Khối hạ tầng gồm `TuyenTau`, `NhaGa` và bảng liên kết `ChiTietTuyen` lưu thứ tự ga và khoảng cách km.*  
+> *- Khối phương tiện gồm `Tau`, `ToaTau` và bảng lịch sử `BaoTri`.*  
+> *- Khối vận hành gồm `LichTrinh` cố định theo tuần và `ChuyenTau` thực tế theo ngày.*  
+> *- Khối thương mại gồm `HanhKhach` và `Ve` bán ra.*  
+> *- Khối quản trị gồm bảng `NhanVien` tích hợp tài khoản và quyền hạn.*  
+>
+> *Đặc biệt, hệ thống khai thác sức mạnh của **5 Stored Procedures cốt lõi**: `sp_DangNhap` xác thực tài khoản phân quyền; `sp_SinhChuyen` tự động sinh các chuyến tàu hàng ngày chống trùng lặp; `sp_BaoCaoDoanhThu`, `sp_DoanhThuTheoTuyen` và `sp_ChiPhiBaoTri` hỗ trợ thống kê tài chính thời gian thực."*
 
 ---
 
-### SLIDE 5: THIẾT KẾ CSDL 11 BẢNG & LƯỢC ĐỒ ERD (1.5 phút)
-* **Tiêu đề Slide**: Mô Hình Cơ Sở Dữ Liệu & Lược Đồ Thực Thể Liên Kết (ERD)
-* **Nội dung hiển thị**: Biểu đồ ERD 11 bảng chuẩn hóa 3NF, danh sách 5 Stored Procedures mở rộng (`sp_DangNhap`, `sp_ThongKeTrangChu`, `sp_SinhChuyen`, `sp_BanVe`, `sp_HuyVe`).
+### PHẦN 3: TỔNG QUAN TÍNH NĂNG & ĐIỂM SÁNG KỸ THUẬT (SLIDE 7 - 9)
 
-**🎤 NGƯỜI 2 trình bày:**
-> *"Về cơ sở dữ liệu, dự án được chuẩn hóa ở mức **3NF** với **11 bảng quan hệ**:  
-> - Cặp bảng `Tuyen` và `Ga` liên kết qua bảng trung gian `Tuyen_Ga` để xác định thứ tự ga và số phút dừng đón trả khách.  
-> - Bảng `Tau` liên kết bảng `ToaTau` (1-n) giúp tính toán động sức chứa chỗ ngồi của đoàn tàu.  
-> - Lịch trình định kỳ `LichTrinh` là căn cứ để bảng `ChuyenTau` sinh ra các chuyến chạy thực tế trong ngày, liên kết với nhân sự `NhanVien` đóng vai trò lái tàu.  
-> - Nghiệp vụ bán vé thể hiện qua bảng `Ve`, kết nối giữa `ChuyenTau`, khách hàng `HanhKhach`, cùng 2 khóa ngoại ga đi (`MaGaDi`) và ga đến (`MaGaDen`).  
-> - Đặc biệt, bảng `BaoTri` liên kết trực tiếp với `Tau` để tạo nên cơ chế đồng bộ trạng thái kỹ thuật tự động 2 chiều.  
-> Ngoài ra, hệ thống tích hợp sẵn **5 Stored Procedures** giúp thực thi giao dịch bán vé an toàn (`sp_BanVe`), hủy vé (`sp_HuyVe`), sinh chuyến tự động (`sp_SinhChuyen`) và nạp thống kê Dashboard tức thời (`sp_ThongKeTrangChu`)."*
-
----
-
-### SLIDE 6: MA TRẬN PHÂN QUYỀN TRUY CẬP (RBAC) (0.5 phút)
-* **Tiêu đề Slide**: Kiểm Soát Truy Cập Dựa Trên Vai Trò (Role-Based Access Control)
-* **Nội dung hiển thị**: Bảng ma trận 4 vai trò: `QuanLy` (Admin - 15 màn hình), `BanVe` (POS & Khách hàng), `KyThuat` (Đoàn tàu & Bảo trì), `LaiTau` (Lịch chạy phân công).
-
-**🎤 NGƯỜI 2 trình bày:**
-> *"Tính bảo mật của phần mềm được củng cố bằng cơ chế phân quyền RBAC phân cấp 4 nhóm quyền rõ rệt:  
-> - **Quản Lý**: Toàn quyền cấu hình, nhân sự và báo cáo tài chính.  
-> - **Bán Vé**: Chỉ được truy cập phân hệ bán vé, tra cứu và khách hàng.  
-> - **Kỹ Thuật**: Quản lý tàu, cấu hình toa và lập phiếu bảo trì.  
-> - **Lái Tàu**: Chỉ được xem các chuyến tàu mình được phân công phụ trách.  
-> Giao diện Trang chủ sẽ tự động vô hiệu hóa và đổi màu các nút ngoài phạm vi quyền ngay sau khi đăng nhập."*
+**[Diễn giả thuyết trình]:**
+> *"Hệ thống bao quát toàn diện quy trình vận hành thông qua **15 màn hình chức năng** được chia thành 6 phân hệ nghiệp vụ: Quản trị, Hạ tầng, Phương tiện, Lịch trình, Bán vé POS và Báo cáo tài chính.*  
+>
+> *Trong quá trình hiện thực hóa dự án, nhóm đã giải quyết được các bài toán kỹ thuật trọng điểm:*  
+> *1. **Đảm bảo toàn vẹn giao dịch (ACID Transactions):** Khi hành khách mua vé hoặc hủy vé, hệ thống vừa thực hiện ghi nhận bản ghi vé, vừa cập nhật giảm/tăng số lượng ghế trống trên chuyến tàu tương ứng. Nếu một trong hai thao tác thất bại, hệ thống tự động Rollback.*  
+> *2. **Bảo mật truy vấn:** 100% câu lệnh SQL đều sử dụng tham số hóa, phòng chống tấn công SQL Injection.*  
+> *3. **Tối ưu giao diện WinForms:** Nhóm đã xử lý triệt để xung đột layout WinForms giữa cơ chế `AutoSizeColumnsMode = Fill` và việc thiết lập độ rộng cột `.Width` trên các TabPage ẩn, giúp 15 màn hình hiển thị mượt mà không xảy ra lỗi NullReference.*  
+> *4. **Chuẩn hóa Unicode UTF-8:** Hỗ trợ hiển thị tiếng Việt có dấu hoàn hảo trên toàn bộ cơ sở dữ liệu và giao diện người dùng.*  
+>
+> *Và ngay sau đây, để Thầy/Cô có cái nhìn chân thực nhất về hoạt động của phần mềm, nhóm chúng em xin phép chuyển sang phần **LIVE DEMO TRỰC TIẾP TOÀN BỘ HỆ THỐNG** theo một mạch vận hành nghiệp vụ thực tế khép kín."*
 
 ---
 
-### SLIDE 7: LIVE DEMO PHẦN 1 - KỸ THUẬT & TỰ ĐỘNG HÓA VẬN HÀNH (2.5 phút)
-* **Nội dung Demo trực tiếp trên phần mềm do NGƯỜI 2 thao tác:**
+### PHẦN 4: KỊCH BẢN LIVE DEMO LIÊN TỤC 1 MẠCH (TRỰC TIẾP TRÊN PHẦN MỀM)
 
-**🎤 NGƯỜI 2 trình bày (vừa nói vừa thao tác trên màn hình):**
-> *"Bây giờ, em xin phép bắt đầu phần **Demo trực tiếp** các nghiệp vụ kỹ thuật và tự động hóa vận hành trên phần mềm:  
-> 1. **Khởi động & Đăng nhập**: Em đăng nhập với tài khoản Kỹ thuật `kythuat` / mật khẩu `123456`. Thầy Cô có thể thấy Trang chủ chỉ mở các nút kỹ thuật, các nút bán vé và hạ tầng bị khóa xám.  
-> 2. **Đồng bộ bảo trì đoàn tàu 2 chiều**: Em đăng nhập lại bằng `admin`, mở form **Quản Lý Tàu**. Tàu số 3 đang có trạng thái `Sẵn sàng`. Em mở form **Bảo Trì**, tạo một lệnh bảo trì mới cho Tàu số 3. Ngay lập tức, quay lại danh sách tàu, trạng thái Tàu số 3 đã tự động chuyển sang `Bảo trì`! Khi em bấm nút `Hoàn thành` trên phiếu bảo trì, hệ thống kiểm tra hết lệnh mở và tự động phục hồi tàu về `Sẵn sàng`. Đây là cơ chế tự động hóa bảo vệ an toàn chạy tàu.  
-> 3. **Tự động sinh chuyến tàu**: Tại form **Lịch Trình**, lịch chạy định kỳ đã được cài đặt theo các thứ trong tuần. Em chỉ cần chọn ngày vận hành và bấm nút **'Sinh chuyến tự động'**, thủ tục `sp_SinhChuyen` sẽ quét lịch và tự động tạo chuyến trong ngày vào form **Quản Lý Chuyến Tàu**, phân công lái tàu mà không cần nhập thủ công từng chuyến."*
+> **Hướng dẫn kỹ thuật:** Diễn giả chuyển màn hình từ PowerPoint sang Visual Studio / Ứng dụng đã chạy sẵn. Thực hiện tuần tự 7 bước liên tục không ngắt quãng.
 
----
+```mermaid
+flowchart TD
+    Step1["Bước 1: Đăng nhập & Dashboard\n(FrmDangNhap ➔ FrmTrangChu)"] --> Step2["Bước 2: Hạ tầng Tuyến & Ga\n(FrmQuanLyTuyen ➔ FrmQuanLyGa)"]
+    Step2 --> Step3["Bước 3: Tàu & Kỹ thuật Bảo trì\n(FrmQuanLyTau ↔ FrmBaoTri)"]
+    Step3 --> Step4["Bước 4: Lập lịch & Sinh chuyến\n(FrmLichTrinh ➔ FrmChuyenTau)"]
+    Step4 --> Step5["Bước 5: POS Bán vé tại quầy\n(FrmBanVe: Trừ ghế tự động)"]
+    Step5 --> Step6["Bước 6: Tra cứu & Hủy vé\n(FrmTraCuuVe: Hoàn lại ghế)"]
+    Step6 --> Step7["Bước 7: Báo cáo Thống kê Realtime\n(FrmBaoCao: Doanh thu & Chi phí)"]
+```
 
-### SLIDE 8: LIVE DEMO PHẦN 2 - BÁN VÉ POS & DỊCH VỤ KHÁCH HÀNG (2.5 phút)
-* **Nội dung Demo trực tiếp trên phần mềm do NGƯỜI 1 thao tác:**
+#### Bước 1: Đăng nhập & Dashboard Quản trị
+* **Thao tác:** Mở `FrmDangNhap` ➔ Nhập tài khoản `admin`, mật khẩu `123456` ➔ Bấm **Đăng nhập**.
+* **Lời nói:**  
+  > *"Trước tiên, em đăng nhập bằng tài khoản Quản trị viên (`admin`). Giao diện Trang chủ `FrmTrangChu` mở ra với các khối số liệu thống kê tổng quan: số tuyến đang mở, số đoàn tàu sẵn sàng vận hành và doanh thu trong ngày."*
 
-*(Người 2 chuyển quyền điều khiển máy cho Người 1)*
+#### Bước 2: Kiểm tra Hạ tầng Tuyến và Nhà ga
+* **Thao tác:** Nhấp Menu **Quản lý Tuyến** (`FrmQuanLyTuyen`) ➔ Chọn Tuyến 1 (`Bến Thành - Suối Tiên`) ➔ Mở **Chi tiết tuyến** (`FrmChiTietTuyen`).
+* **Lời nói:**  
+  > *"Ở phân hệ Hạ tầng, hệ thống quản lý danh sách tuyến và các chặng dừng. Tuyến số 1 có các nhà ga từ Bến Thành, Nhà hát TP, Ba Son... được sắp xếp thứ tự và tính khoảng cách chuẩn xác để làm căn cứ tính cước vé sau này."*
 
-**🎤 NGƯỜI 1 trình bày (vừa nói vừa thao tác trên màn hình):**
-> *"Tiếp nối quy trình vận hành, em xin phép demo nghiệp vụ **Bán vé thông minh tại quầy (POS)**:  
-> 1. **Chọn chuyến & Tính cước tự động**: Em mở form **Bán Vé Tại Quầy**. Chọn chuyến tàu số 1 thuộc Tuyến 01. Danh sách ga lập tức hiển thị đúng các ga của tuyến này.  
-> Em chọn **Ga đi: Ga Bến Thành (thứ tự 1)**, **Ga đến: Ga Suối Tiên (thứ tự 7)**. Hệ thống tự động tính cự ly là **6 chặng** và áp mức giá **18.000 VNĐ**. Nếu em vô tình chọn ga đến nằm trước ga đi, hệ thống cảnh báo đỏ và khóa nút in vé ngay lập tức.  
-> 2. **Chính sách ưu tiên**: Khi chuyển loại vé sang **'Ưu tiên'**, hệ thống tự động giảm ngay 30% giá vé, giá chỉ còn **12.600 VNĐ**.  
-> 3. **Tra cứu khách hàng thân thiết**: Em nhập CCCD `079202699999` của khách quen, hệ thống tự động điền Họ tên và SĐT từ CSDL mà nhân viên không cần gõ lại.  
-> 4. **Giao dịch Transaction an toàn & In vé**: Nhấn nút **'In Vé' (hoặc F5)**. Giao dịch `SqlTransaction` thực thi chớp nhoáng và popup hóa đơn chuẩn POS xuất hiện với đầy đủ mã vé, ga lên/xuống, loại vé và lời chúc hành khách.  
-> 5. **Tra cứu & Hủy vé**: Tại form **Tra Cứu Vé**, vé vừa mua hiển thị ngay trên đầu danh sách. Khi hành khách yêu cầu đổi trả, nhân viên bấm **'Hủy vé'**, trạng thái vé chuyển sang `Đã hủy` để kế toán đối soát minh bạch."*
+#### Bước 3: Quản lý Phương tiện & Đồng bộ Bảo dưỡng kỹ thuật
+* **Thao tác:** Mở **Quản lý Tàu** (`FrmQuanLyTau`) ➔ Thấy tàu `SE01` đang ở trạng thái `Sẵn sàng`.  
+  Mở tiếp **Quản lý Bảo trì** (`FrmBaoTri`) ➔ Tạo một phiếu bảo trì mới cho tàu `SE01`, chọn trạng thái `Đang bảo dưỡng` ➔ Lưu lại.  
+  Quay lại `FrmQuanLyTau` bấm **Làm mới**.
+* **Lời nói:**  
+  > *"Tiếp theo là phân hệ kỹ thuật: Tàu `SE01` ban đầu sẵn sàng chạy. Khi đội ngũ kỹ thuật lập phiếu bảo dưỡng định kỳ trên `FrmBaoTri`, trạng thái của tàu trên `FrmQuanLyTau` lập tức được đồng bộ sang 'Đang bảo dưỡng'. Nhờ đó, điều độ viên sẽ không thể vô ý xếp một đoàn tàu đang bảo trì vào lịch chạy, đảm bảo an toàn tuyệt đối."*
 
----
+#### Bước 4: Lập Lịch trình & Tự động sinh Chuyến tàu trong ngày
+* **Thao tác:** Mở **Lịch trình** (`FrmLichTrinh`) ➔ Xem các khung giờ chạy định kỳ theo ngày trong tuần.  
+  Mở **Chuyến tàu** (`FrmChuyenTau`) ➔ Bấm nút **Sinh chuyến** hoặc hiển thị danh sách các chuyến tàu thực tế hôm nay.
+* **Lời nói:**  
+  > *"Để giảm thiểu thao tác nhập liệu thủ công mỗi sáng, hệ thống có tính năng sinh chuyến tự động bằng Stored Procedure `sp_SinhChuyen`. Hệ thống tự động quét khung giờ lịch trình để tạo các chuyến chạy cụ thể trong ngày kèm số lượng ghế trống ban đầu."*
 
-### SLIDE 9: DASHBOARD THỜI GIAN THỰC & BÁO CÁO DOANH THU (1.5 phút)
-* **Tiêu đề Slide**: Báo Cáo Thống Kê Đa Chiều & Dashboard Quản Trị
-* **Nội dung hiển thị**: Minh họa Dashboard thời gian thực và 3 Tab trong Form Báo cáo (`FrmBaoCao`).
+#### Bước 5: Điểm bán vé POS tại quầy (Smart Ticketing)
+* **Thao tác:** Mở màn hình **Bán vé** (`FrmBanVe`):
+  1. Chọn Tuyến 1.
+  2. Chọn Ga đi: `Bến Thành`, Ga đến: `Suối Tiên`.
+  3. Chọn Chuyến tàu còn ghế trống (ví dụ còn 200 ghế).
+  4. Loại vé: `Vé thường`. Giá vé tự động tính toán lũy tiến theo số chặng ga.
+  5. Nhập Họ tên khách hàng: `Nguyễn Văn An`, CCCD/SĐT.
+  6. Bấm nút **Xuất vé**.
+* **Lời nói:**  
+  > *"Và đây là phân hệ trọng tâm: Điểm bán vé POS quầy `FrmBanVe`. Nhân viên thu ngân chỉ cần chọn tuyến, ga đi, ga đến. Hệ thống tự động tính cước chuẩn xác theo số ga di chuyển.  
+  > Khi em bấm 'Xuất vé', mã vé mới được tạo lập tức, thông tin hành khách được lưu trữ, và quan trọng nhất: số ghế trống trên chuyến tàu lập tức bị trừ đi 1 ghế ngay trên lưới dữ liệu thời gian thực."*
 
-**🎤 NGƯỜI 1 trình bày:**
-> *"Toàn bộ kết quả bán vé và chi phí bảo trì nói trên lập tức được phản ánh tức thời lên **Dashboard Trang chủ** thông qua thủ tục `sp_ThongKeTrangChu`: số vé bán hôm nay và doanh thu tự động tăng lên mà không có độ trễ.  
-> Đồng thời, tại màn hình **Báo Cáo Thống Kê**, ban giám đốc có cái nhìn đa chiều thông qua 3 Tab chuyên sâu:  
-> - **Tab 1**: Doanh thu chi tiết theo từng ngày giao dịch.  
-> - **Tab 2**: Doanh thu lũy kế theo từng tuyến tàu đô thị.  
-> - **Tab 3**: Tổng hợp chi phí sửa chữa và bảo dưỡng theo từng đoàn tàu."*
+#### Bước 6: Tra cứu & Xử lý Hủy vé (Hoàn ghế tự động)
+* **Thao tác:** Mở **Tra cứu vé** (`FrmTraCuuVe`) ➔ Nhập mã vé vừa xuất hoặc tìm theo CCCD `Nguyễn Văn An`.  
+  Bấm chọn vé đó ➔ Bấm nút **Hủy vé** ➔ Xác nhận hộp thoại cảnh báo.  
+  Quay lại `FrmBanVe` hoặc `FrmChuyenTau` kiểm tra: Số ghế trống đã tự động tăng lại +1 ghế.
+* **Lời nói:**  
+  > *"Trong trường hợp khách hàng muốn đổi chuyến hoặc hủy vé, nhân viên mở `FrmTraCuuVe` tìm kiếm theo số CCCD. Khi bấm 'Hủy vé', trạng thái vé chuyển sang 'Đã hủy' và cơ chế Transaction trong cơ sở dữ liệu sẽ tự động cộng hoàn lại 1 ghế trống cho chuyến tàu để phục vụ khách hàng khác."*
 
-*(Người 1 chuyển sang cho Người 2 để tổng kết kỹ thuật)*
-
----
-
-### SLIDE 10: CÁC GIẢI PHÁP KỸ THUẬT NỔI BẬT ĐÃ GIẢI QUYẾT (1.5 phút)
-* **Tiêu đề Slide**: Điểm Sáng Kỹ Thuật & Tối Ưu Hóa Hệ Thống
-* **Nội dung hiển thị**:
-  1. Bảo vệ chống SQL Injection 100% bằng Parameterized Queries.
-  2. Toàn vẹn giao dịch ACID với `SqlTransaction` (Rollback khi gặp sự cố).
-  3. Chuẩn hóa mã hóa tiếng Việt UTF-8 with BOM trên SQL Server.
-  4. Cơ chế Fallback 2 lớp thông minh (Stored Procedure ➔ Parameterized Query).
-  5. Giải quyết triệt để lỗi WinForms DataGridView column thickness trong TabControl.
-
-**🎤 NGƯỜI 2 trình bày:**
-> *"Trong quá trình hiện thực hóa dự án, nhóm đã giải quyết xuất sắc 5 thách thức kỹ thuật tiêu biểu:  
-> 1. **Bảo mật SQL tuyệt đối**: 100% truy vấn dùng `SqlParameter`, triệt tiêu rủi ro Injection.  
-> 2. **Giao dịch toàn vẹn ACID**: Bán vé áp dụng Transaction, đảm bảo khách hàng và vé luôn đồng bộ, không phát sinh dữ liệu rác.  
-> 3. **Chuẩn hóa UTF-8 BOM**: Khắc phục dứt điểm hiện tượng lỗi font tiếng Việt khi chuyển giao script CSDL giữa các máy khác nhau.  
-> 4. **Cơ chế Fallback thông minh**: Ứng dụng luôn ưu tiên Stored Procedures, nhưng có sẵn lớp dự phòng câu lệnh SQL tương đương, đảm bảo phần mềm không bao giờ bị gián đoạn.  
-> 5. **Tối ưu hóa DataGridView WinForms**: Xử lý triệt để xung đột layout đồ họa khi định dạng cột trên các Tab chưa được vẽ Handle, giúp cả 15/15 Form mở mượt mà tuyệt đối."*
-
----
-
-### SLIDE 11: ĐỊNH HƯỚNG MỞ RỘNG TRONG TƯƠNG LAI (ROADMAP) (1 phút)
-* **Tiêu đề Slide**: Định Hướng Phát Triển Sản Phẩm (Future Roadmap)
-* **Nội dung hiển thị**:
-  - Mã hóa mật khẩu BCrypt / PBKDF2 có Salt.
-  - Cổng soát vé tự động AFC: Mã QR Code động & Thẻ thông minh NFC/Mifare.
-  - Kiến trúc Đa nền tảng: ASP.NET Core Web API + Mobile App (Flutter/React Native) cho hành khách.
-  - Tích hợp cổng thanh toán trực tuyến: VNPAY, MoMo, VietQR.
-
-**🎤 NGƯỜI 2 trình bày:**
-> *"Để sẵn sàng triển khai trong thực tế công nghiệp, hệ thống đã chuẩn bị sẵn lộ trình nâng cấp:  
-> - Tăng cường bảo mật với mã hóa mật khẩu một chiều BCrypt.  
-> - Tích hợp hệ thống cửa soát vé tự động AFC với mã QR Code trên vé điện tử và thẻ từ NFC.  
-> - Xây dựng Backend Web API và Mobile App để hành khách có thể tự tra cứu tàu chạy thời gian thực và thanh toán online qua VNPAY, MoMo hay VietQR."*
+#### Bước 7: Báo cáo Thống kê & Bảng điều khiển Tài chính
+* **Thao tác:** Mở màn hình **Báo cáo** (`FrmBaoCao`):
+  - Chuyển tab **Doanh thu theo ngày**: Hiển thị tổng tiền bán vé và số vé bán ra.
+  - Chuyển tab **Doanh thu theo tuyến**: Hiển thị tỷ trọng tuyến nào đông khách nhất.
+  - Chuyển tab **Chi phí bảo trì**: Hiển thị chi phí bảo dưỡng từng tàu.
+* **Lời nói:**  
+  > *"Cuối cùng, màn hình Báo cáo `FrmBaoCao` cung cấp cái nhìn tài chính toàn diện cho ban giám đốc: Thống kê doanh thu theo ngày, lưu lượng khách trên từng tuyến và chi phí kỹ thuật. Màn hình hoạt động nhanh chóng, chính xác và không có bất kỳ độ trễ nào."*
 
 ---
 
-### SLIDE 12: TỔNG KẾT & LỜI CẢM ƠN (0.5 phút)
-* **Tiêu đề Slide**: Lời Cảm Ơn & Phần Hỏi Đáp (Q&A)
+### PHẦN 5: ĐÁNH GIÁ KẾT QUẢ, ĐỊNH HƯỚNG PHÁT TRIỂN & KẾT LUẬN (SLIDE 10 - 12)
 
-**🎤 NGƯỜI 1 trình bày:**
-> *"Kính thưa Hội đồng, dự án **Subway Management System** đã hoàn thành trọn vẹn 100% các mục tiêu đề ra: từ việc chuẩn hóa cơ sở dữ liệu, thiết kế 15 màn hình giao diện đồng bộ, đến việc tự động hóa các quy trình cốt lõi trong vận hành đường sắt đô thị.  
-> Nhóm chúng em xin chân thành cảm ơn quý Thầy/Cô đã lắng nghe bài thuyết trình. Chúng em rất mong nhận được những nhận xét, đóng góp quý báu từ Thầy/Cô để hoàn thiện đề tài hơn nữa.  
-> Nhóm chúng em xin sẵn sàng bước vào phần **Hỏi & Đáp (Q&A)** ạ!"*
+> **Hướng dẫn kỹ thuật:** Diễn giả chuyển màn hình quay lại PowerPoint Slide 10.
 
----
-
-## ❓ 4. BỘ CÂU HỎI HÓC BÚA THƯỜNG GẶP CỦA HỘI ĐỒNG & CÂU TRẢ LỜI MẪU
-
-### Câu hỏi 1: "Tại sao nhóm lại dùng Windows Forms và .NET Framework mà không dùng Web App hay App di động ngay từ đầu?"
-* **Người trả lời đề xuất**: **Người 2 (Tech Lead)**
-* **Câu trả lời chuẩn**:
-  > *"Dạ thưa Thầy/Cô, trong các hệ thống đường sắt đô thị và nhà ga thực tế, các quầy bán vé (POS - Point of Sale) và trung tâm điều độ (OCC - Operation Control Center) luôn ưu tiên sử dụng ứng dụng Desktop chuyên dụng (WinForms / WPF) vì:  
-  > 1. Tốc độ phản hồi cực nhanh, không phụ thuộc vào độ trễ của trình duyệt web.  
-  > 2. Khả năng kết nối trực tiếp với phần cứng ngoại vi tại quầy như máy in nhiệt hóa đơn POS, đầu đọc mã vạch CCCD và cổng soát vé tự động qua cổng COM/USB.  
-  > 3. Tuy nhiên, kiến trúc hệ thống của nhóm đã tách bạch tầng DAL rõ ràng, trong giai đoạn tiếp theo chỉ cần xây dựng tầng Web API là có thể kết nối ngay với Mobile App cho hành khách mà không phải sửa đổi cấu trúc dữ liệu cốt lõi."*
-
----
-
-### Câu hỏi 2: "Khi 2 nhân viên bán vé cùng bán chiếc vé cuối cùng trên 1 chuyến tàu tại cùng 1 thời điểm, hệ thống xử lý tranh chấp (Concurrency) như thế nào?"
-* **Người trả lời đề xuất**: **Người 2 (Tech Lead)**
-* **Câu trả lời chuẩn**:
-  > *"Dạ thưa Thầy/Cô, hệ thống xử lý bài toán này thông qua 2 cơ chế:  
-  > 1. **Kiểm tra sức chứa đoàn tàu**: Tổng số vé đã bán của chuyến luôn được kiểm tra với tổng sức chứa của đoàn tàu (được tính tổng từ các toa trong bảng `ToaTau`).  
-  > 2. **Giao dịch SqlTransaction cấp độ Isolation**: Khi gọi `sp_BanVe` hoặc giao dịch trong C#, lệnh `BEGIN TRANSACTION` sẽ khóa độc quyền dòng dữ liệu trong tích tắc khi ghi nhận vé. Nếu một giao dịch phát hiện đã hết chỗ, giao dịch đó sẽ tự động Rollback và thông báo cho nhân viên là chuyến đã đủ tải, hoàn toàn không xảy ra tình trạng bán quá số ghế (overbooking)."*
+**[Diễn giả thuyết trình]:**
+> *"Kính thưa Thầy/Cô, qua phần trình diễn vừa rồi, phần mềm đã chứng minh năng lực đáp ứng trọn vẹn mọi yêu cầu nghiệp vụ thực tế của một hệ thống quản lý đường sắt đô thị.*  
+>
+> *Về mặt hiệu năng, phần mềm giúp:*  
+> *- Rút ngắn thời gian phục vụ tại quầy vé xuống dưới 15 giây/khách.*  
+> *- Ngăn chặn 100% lỗi xung đột điều phối đoàn tàu.*  
+> *- Minh bạch hóa toàn bộ dữ liệu tài chính và kỹ thuật.*  
+>
+> *Trong các giai đoạn tiếp theo (Roadmap), nhóm định hướng mở rộng thêm:*  
+> *1. **Cổng soát vé tự động:** Tích hợp đầu đọc QR Code động trên màn hình điện thoại và thẻ thông minh RFID/NFC tại cổng ra vào.*  
+> *2. **App di động cho hành khách:** Cho phép người dân mua vé trực tuyến và xem vị trí tàu chạy thời gian thực.*  
+> *3. **Hệ thống cảm biến IoT:** Theo dõi tình trạng kỹ thuật bánh tàu, nhiệt độ động cơ để dự đoán bảo trì tự động.*  
+>
+> *Đề tài của nhóm chúng em đến đây là kết thúc. Chúng em xin chân thành cảm ơn quý Thầy/Cô trong Hội đồng đã chú ý lắng nghe và rất mong nhận được những góp ý quý báu từ Thầy/Cô! Nhóm chúng em sẵn sàng bước vào phần giải đáp câu hỏi ạ!"*
 
 ---
 
-### Câu hỏi 3: "Khi xóa một Ga tàu hoặc một Tuyến tàu thì các dữ liệu vé và lịch trình cũ có bị mất hay lỗi khóa ngoại không?"
-* **Người trả lời đề xuất**: **Người 1 (BA)**
-* **Câu trả lời chuẩn**:
-  > *"Dạ thưa Thầy/Cô, nhóm đã áp dụng 2 nguyên tắc thiết kế nghiệp vụ chặt chẽ:  
-  > 1. **Cơ chế Xóa mềm (Soft-Delete)**: Với Tuyến tàu và Ga tàu, hệ thống không dùng lệnh `DELETE` vật lý mà cập nhật trạng thái `TrangThai = N'Ngưng hoạt động'`. Do đó, toàn bộ dữ liệu lịch sử các vé đã bán, các chuyến tàu cũ đều được bảo toàn nguyên vẹn phục vụ kế toán và thống kê.  
-  > 2. **Ràng buộc kiểm tra nghiệp vụ**: Trong form `FrmQuanLyGa`, hệ thống có hàm `KiemTraGaDangThuocTuyenHoatDong()`. Nếu nhà ga đó đang nằm trên tuyến đang hoạt động thì hệ thống sẽ chủ động chặn và cảnh báo, không cho phép ngưng hoạt động ga đó."*
+## 🛡️ PHẦN 6: BỘ 6 CÂU HỎI VẤN ĐÁP PHẢN BIỆN (Q&A DEFENSE)
 
----
+### Câu 1: Làm thế nào hệ thống ngăn chặn việc 2 quầy bán vé cùng đặt trùng 1 chỗ ngồi (Concurrency Concurrency Control)?
+* **Trả lời chuẩn:**  
+  > *"Thưa Thầy/Cô, trong cơ chế bán vé của hệ thống, thao tác xuất vé và trừ ghế trống được thực thi trong một Transaction duy nhất ở mức độ cách ly thích hợp. Khi nhân viên quầy 1 bấm xuất vé, bản ghi chuyến tàu được cập nhật có điều kiện: `UPDATE ChuyenTau SET SoGheTrong = SoGheTrong - 1 WHERE MaChuyen = @MaChuyen AND SoGheTrong > 0`. Nếu số ghế đã hết tại thời điểm ghi nhận, câu lệnh sẽ tác động 0 dòng và hệ thống lập tức thông báo hết vé, ngăn chặn tình trạng bán âm hoặc trùng vé."*
 
-### Câu hỏi 4: "Mật khẩu nhân viên trong database có an toàn không nếu bị lộ file cơ sở dữ liệu?"
-* **Người trả lời đề xuất**: **Người 2 (Tech Lead)**
-* **Câu trả lời chuẩn**:
-  > *"Dạ thưa Thầy/Cô, trong phiên bản đồ án hiện tại, để thuận tiện cho việc chấm bài và demo giữa các vai trò khác nhau, nhóm đang lưu mật khẩu mặc định là `123456`.  
-  > Tuy nhiên, về mặt thiết kế bảo mật, nhóm đã đưa việc áp dụng giải thuật **BCrypt / PBKDF2 với Salt 128-bit** vào vị trí ưu tiên số 1 trong lộ trình nâng cấp (Roadmap). Khi áp dụng, mật khẩu sẽ được băm một chiều, kể cả quản trị viên quản lý CSDL cũng không thể giải mã được mật khẩu gốc của người dùng."*
+### Câu 2: Tại sao nhóm lựa chọn xử lý nghiệp vụ sinh chuyến bằng Stored Procedure mà không viết bằng mã C#?
+* **Trả lời chuẩn:**  
+  > *"Thưa Thầy/Cô, nghiệp vụ sinh chuyến định kỳ đòi hỏi đọc toàn bộ lịch trình tuần và kiểm tra xem ngày hôm đó đã tồn tại chuyến chưa trước khi INSERT hàng loạt bản ghi mới. Nếu xử lý ở C#, ứng dụng phải thực hiện nhiều lượt gửi nhận dữ liệu (Network Round-trips) giữa ứng dụng và máy chủ CSDL. Việc đóng gói vào Stored Procedure `sp_SinhChuyen` giúp thực thi trực tiếp trên máy chủ SQL Server, tốc độ tăng gấp nhiều lần và giảm tải tối đa cho đường truyền mạng."*
 
----
+### Câu 3: Mật khẩu người dùng trong cơ sở dữ liệu đang lưu trữ ra sao? Nếu triển khai thực tế nhóm sẽ bảo mật thế nào?
+* **Trả lời chuẩn:**  
+  > *"Thưa Thầy/Cô, trong phiên bản thử nghiệm học phần để tiện kiểm thử, hệ thống lưu mật khẩu dạng chuỗi. Tuy nhiên, theo đúng chuẩn bảo mật phần mềm, khi đưa vào môi trường Production thực tế, nhóm sẽ áp dụng cơ chế băm mật khẩu bằng thuật toán một chiều như BCrypt hoặc PBKDF2 kèm chuỗi ngẫu nhiên (Salt), đảm bảo ngay cả quản trị viên quản lý CSDL cũng không thể giải mã được mật khẩu của nhân viên."*
 
-### Câu hỏi 5: "Làm thế nào để hệ thống tính được giá vé khác nhau giữa các ga một cách công bằng?"
-* **Người trả lời đề xuất**: **Người 1 (BA)**
-* **Câu trả lời chuẩn**:
-  > *"Dạ thưa Thầy/Cô, hệ thống tính cước dựa trên **Thứ tự thực tế (`ThuTu`)** của các ga trên tuyến được định nghĩa trong bảng `Tuyen_Ga`:  
-  > `Cự ly = ThuTuGaDen - ThuTuGaDi`.  
-  > Sau đó, cước phí được tính lũy tiến theo bảng giá metro chuẩn:  
-  > - Từ 1 đến 2 chặng: 12.000 VNĐ  
-  > - Từ 3 đến 4 chặng: 15.000 VNĐ  
-  > - Từ 5 đến 6 chặng: 18.000 VNĐ  
-  > - Trên 6 chặng: 20.000 VNĐ  
-  > Đồng thời, nếu hành khách thuộc diện 'Ưu tiên' (học sinh, sinh viên, người cao tuổi), thuật toán tự động áp dụng chính sách giảm 30% cước phí, thể hiện tính nhân văn và đúng thực tế quy định của đường sắt đô thị."*
+### Câu 4: Khi xóa một tuyến tàu hoặc một đoàn tàu có phát sinh lỗi khóa ngoại (Foreign Key) không? Nhóm xử lý thế nào?
+* **Trả lời chuẩn:**  
+  > *"Thưa Thầy/Cô, trong CSDL của nhóm, bảng `TuyenTau` có liên kết khóa ngoại với `ChiTietTuyen` và `LichTrinh`. Nhóm thiết lập ràng buộc toàn vẹn: không cho phép xóa cứng (Hard Delete) các tuyến tàu hay đầu tàu đã có lịch sử vận hành, chuyến tàu hoặc vé bán, nhằm tránh làm mất dữ liệu tài chính lịch sử. Thay vào đó, hệ thống áp dụng cơ chế xóa mềm (Soft Delete) bằng cách chuyển cột `TrangThai` sang 'Tạm ngưng' hoặc 'Ngừng hoạt động'."*
 
----
+### Câu 5: Nhóm đã xử lý lỗi xung đột giao diện DataGridView trên các TabPage ẩn trong Form Báo cáo như thế nào?
+* **Trả lời chuẩn:**  
+  > *"Thưa Thầy/Cô, trong Windows Forms, khi DataGridView được đặt trong một TabPage chưa được người dùng nhấp chọn (chưa vẽ trên màn hình), việc thiết lập thuộc tính `AutoSizeColumnsMode = Fill` đồng thời can thiệp gán `.Width` thủ công cho từng cột sẽ gây ra ngoại lệ `NullReferenceException` tại hàm `set_Thickness` của .NET. Nhóm đã tối ưu bằng cách tắt chế độ tự động giãn cách `AutoSizeMode = None` trước khi thiết lập kích thước cột, đảm bảo toàn bộ dữ liệu tải ngầm mượt mà và không phát sinh lỗi."*
 
-### Câu hỏi 6: "Dự án đã giải quyết vấn đề lỗi font tiếng Việt và đồng bộ giữa các máy như thế nào?"
-* **Người trả lời đề xuất**: **Người 2 (Tech Lead)**
-* **Câu trả lời chuẩn**:
-  > *"Dạ thưa Thầy/Cô, ban đầu khi chạy script trên các máy tính sử dụng Windows bảng mã ANSI khác nhau, các ký tự có dấu như 'Hoạt động' thường bị biến thành lỗi font (mojibake).  
-  > Nhóm đã xử lý triệt để bằng cách:  
-  > 1. Lưu lại toàn bộ các file `.sql` chuẩn định dạng **UTF-8 with BOM**.  
-  > 2. Mọi chuỗi ký tự tiếng Việt trong câu lệnh SQL đều có tiền tố `N` (Unicode).  
-  > 3. Viết lại Stored Procedure `sp_DangNhap` và `sp_ThongKeTrangChu` để nhận diện chính xác các trường Unicode, giúp dự án mang sang bất kỳ máy tính nào chạy F5 cũng hoạt động trơn tru 100%."*
+### Câu 6: Nếu hệ thống mở rộng kết nối với cổng xoay quét vé (Turnstile) ngoài thực tế thì cần tích hợp thêm gì?
+* **Trả lời chuẩn:**  
+  > *"Thưa Thầy/Cô, khi triển khai thực tế, bảng `Ve` sẽ bổ sung trường `MaVach_QR` dạng chuỗi mã hóa mã vé + thời gian xuất vé. Tại cổng xoay, nhóm chỉ cần tích hợp thêm module Web API giao tiếp qua TCP/IP hoặc REST API với bộ điều khiển cổng xoay (PLC/Controller). Khi hành khách quét vé, cổng gửi mã lên API để kiểm tra trạng thái vé `HopLe` và tuyến ga tương ứng, sau đó gửi tín hiệu mở chốt cổng và cập nhật vé sang trạng thái `DaSuDung`."*
