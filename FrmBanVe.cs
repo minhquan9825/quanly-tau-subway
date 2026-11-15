@@ -52,6 +52,25 @@ namespace QuanLyTau
             }
             else
             {
+                // Tự động sinh chuyến định kỳ cho ngày này qua sp_SinhChuyen nếu chưa có chuyến
+                try
+                {
+                    DataTable dtAuto = Ketnoi_CSDL.ExecuteProcedure("sp_SinhChuyen", new SqlParameter[] { new SqlParameter("@NgayChay", ngay) });
+                    if (dtAuto != null && dtAuto.Rows.Count > 0 && Convert.ToInt32(dtAuto.Rows[0][0]) > 0)
+                    {
+                        dt = Ketnoi_CSDL.ExecuteQuery(sql, new SqlParameter[] { new SqlParameter("@Ngay", ngay) });
+                        if (dt != null && dt.Rows.Count > 0)
+                        {
+                            cboChuyenTau.DataSource = dt;
+                            cboChuyenTau.DisplayMember = "ThongTinChuyen";
+                            cboChuyenTau.ValueMember = "MaChuyen";
+                            cboChuyenTau.SelectedIndex = 0;
+                            return;
+                        }
+                    }
+                }
+                catch { }
+
                 cboChuyenTau.DataSource = null;
                 cboGaDi.DataSource = null;
                 cboGaDen.DataSource = null;

@@ -150,30 +150,36 @@ flowchart TD
 
 #### Bước 5: Điểm bán vé POS tại quầy (Smart Ticketing)
 * **Thao tác:** Mở màn hình **Bán vé** (`FrmBanVe`):
-  1. Chọn Tuyến 1.
-  2. Chọn Ga đi: `Bến Thành`, Ga đến: `Suối Tiên`.
-  3. Chọn Chuyến tàu còn ghế trống (ví dụ còn 200 ghế).
-  4. Loại vé: `Vé thường`. Giá vé tự động tính toán lũy tiến theo số chặng ga.
-  5. Nhập Họ tên khách hàng: `Nguyễn Văn An`, CCCD/SĐT.
-  6. Bấm nút **Xuất vé**.
+  1. Ngày chạy mặc định hôm nay (hoặc chọn ngày chạy có chuyến).
+  2. Tại danh sách chuyến tàu (`cboChuyenTau`): Hệ thống hiển thị đầy đủ các chuyến tàu của các tuyến (Tuyến 01: Bến Thành - Suối Tiên, Tuyến 02: Bến Thành - Tham Lương, Tuyến 03: Cát Linh - Hà Đông).
+  3. Chọn chuyến tàu (ví dụ: Chuyến Tuyến 01 Bến Thành - Suối Tiên).
+  4. Lộ trình ga tự động hiển thị: Ga đi mặc định là `1. Ga Bến Thành`, Ga đến mặc định là `7. Ga Suối Tiên`.
+  5. Loại vé: `Vé thường`. Cự ly 6 chặng ga, giá vé tự động tính toán lũy tiến thành `20.000 VNĐ`.
+  6. Nhập Họ tên khách hàng: `Nguyễn Văn An`, CCCD: `079203001234`, SĐT: `0909123456`.
+  7. Bấm nút **Xuất vé** ➔ Thông báo xuất vé thành công qua thủ tục `sp_BanVe`.
 * **Lời nói:**  
-  > *"Và đây là phân hệ trọng tâm: Điểm bán vé POS quầy `FrmBanVe`. Nhân viên thu ngân chỉ cần chọn tuyến, ga đi, ga đến. Hệ thống tự động tính cước chuẩn xác theo số ga di chuyển.  
-  > Khi em bấm 'Xuất vé', mã vé mới được tạo lập tức, thông tin hành khách được lưu trữ, và quan trọng nhất: số ghế trống trên chuyến tàu lập tức bị trừ đi 1 ghế ngay trên lưới dữ liệu thời gian thực."*
+  > *"Và đây là phân hệ trọng tâm: Điểm bán vé POS quầy `FrmBanVe`. Thu ngân chỉ cần chọn chuyến tàu trong ngày. Hệ thống hỗ trợ đa tuyến (Tuyến 1 Bến Thành - Suối Tiên, Tuyến 2 Bến Thành - Tham Lương, Tuyến 3 Cát Linh - Hà Đông) và tự động nạp lộ trình chặng ga tương ứng từ Ga Bến Thành đến Ga Suối Tiên.  
+  > Giá vé được tính tự động theo cự ly chặng ga. Khi bấm 'Xuất vé', giao dịch ACID trong thủ tục `sp_BanVe` sẽ tự động ghi nhận hồ sơ khách hàng, phát hành mã vé mới và cập nhật trạng thái thanh toán ngay lập tức."*
 
 #### Bước 6: Tra cứu & Xử lý Hủy vé (Hoàn ghế tự động)
-* **Thao tác:** Mở **Tra cứu vé** (`FrmTraCuuVe`) ➔ Nhập mã vé vừa xuất hoặc tìm theo CCCD `Nguyễn Văn An`.  
-  Bấm chọn vé đó ➔ Bấm nút **Hủy vé** ➔ Xác nhận hộp thoại cảnh báo.  
-  Quay lại `FrmBanVe` hoặc `FrmChuyenTau` kiểm tra: Số ghế trống đã tự động tăng lại +1 ghế.
+* **Thao tác:** Mở **Tra cứu vé** (`FrmTraCuuVe`) ➔ Nhập mã vé vừa xuất hoặc tìm theo CCCD `079203001234`.  
+  Bấm chọn vé đó ➔ Bấm nút **Hủy vé** ➔ Xác nhận hộp thoại cảnh báo ➔ Vé chuyển sang trạng thái "Đã hủy".
 * **Lời nói:**  
-  > *"Trong trường hợp khách hàng muốn đổi chuyến hoặc hủy vé, nhân viên mở `FrmTraCuuVe` tìm kiếm theo số CCCD. Khi bấm 'Hủy vé', trạng thái vé chuyển sang 'Đã hủy' và cơ chế Transaction trong cơ sở dữ liệu sẽ tự động cộng hoàn lại 1 ghế trống cho chuyến tàu để phục vụ khách hàng khác."*
+  > *"Trong trường hợp khách hàng muốn đổi chuyến hoặc hủy vé, nhân viên mở `FrmTraCuuVe` tìm kiếm theo số CCCD. Khi bấm 'Hủy vé', thủ tục `sp_HuyVe` trong cơ sở dữ liệu sẽ cập nhật trạng thái vé sang 'Đã hủy' và đảm bảo ghi nhận minh bạch vào báo cáo tài chính."*
 
 #### Bước 7: Báo cáo Thống kê & Bảng điều khiển Tài chính
 * **Thao tác:** Mở màn hình **Báo cáo** (`FrmBaoCao`):
-  - Chuyển tab **Doanh thu theo ngày**: Hiển thị tổng tiền bán vé và số vé bán ra.
-  - Chuyển tab **Doanh thu theo tuyến**: Hiển thị tỷ trọng tuyến nào đông khách nhất.
-  - Chuyển tab **Chi phí bảo trì**: Hiển thị chi phí bảo dưỡng từng tàu.
+  - **Tab 1: Doanh thu theo khoảng ngày:**
+    * Chọn khoảng ngày cần xem (hoặc giữ khoảng ngày mặc định).
+    * Bấm nút **Xem Thống Kê**: Hệ thống lập tức tổng hợp dữ liệu và hiện thông báo chi tiết: tổng số ngày phát sinh giao dịch, tổng vé bán, tổng vé hủy và tổng doanh thu thực tế.
+    * 3 thẻ thống kê (KPI cards) và bảng chi tiết giao dịch từng ngày hiển thị trực quan.
+  - **Tab 2: Doanh thu theo tuyến tàu:**
+    * Bấm chuyển sang tab 2 ➔ Bấm **Xem Thống Kê**: Bảng số liệu phân tích rõ rệt doanh thu và lưu lượng khách của từng tuyến metro (Tuyến 1, Tuyến 2, Tuyến 3).
+  - **Tab 3: Chi phí & Lịch sử bảo trì:**
+    * Bấm chuyển sang tab 3 ➔ Bấm **Xem Thống Kê**: Tổng hợp toàn bộ kinh phí bảo dưỡng kỹ thuật và số lượt bảo trì của các đoàn tàu.
 * **Lời nói:**  
-  > *"Cuối cùng, màn hình Báo cáo `FrmBaoCao` cung cấp cái nhìn tài chính toàn diện cho ban giám đốc: Thống kê doanh thu theo ngày, lưu lượng khách trên từng tuyến và chi phí kỹ thuật. Màn hình hoạt động nhanh chóng, chính xác và không có bất kỳ độ trễ nào."*
+  > *"Cuối cùng, màn hình Báo cáo `FrmBaoCao` cung cấp bức tranh tài chính đa chiều cho ban điều hành:  
+  > Khi người quản trị chọn khoảng thời gian và bấm nút 'Xem Thống Kê', hệ thống ngay lập tức tổng hợp doanh thu theo từng ngày giao dịch, so sánh hiệu quả khai thác giữa các tuyến metro và kiểm soát chi phí bảo dưỡng kỹ thuật của toàn đội tàu. Các số liệu được liên kết và cập nhật theo thời gian thực một cách chính xác tuyệt đối."*
 
 ---
 

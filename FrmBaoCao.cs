@@ -68,6 +68,15 @@ namespace QuanLyTau
         private void btnThongKeNgay_Click(object sender, EventArgs e)
         {
             ThongKeDoanhThuNgay();
+            int soNgay = dgvDoanhThuNgay.Rows.Count;
+            MessageBox.Show(string.Format("Đã cập nhật thống kê doanh thu ({0} - {1}):\n" +
+                "• Số ngày phát sinh giao dịch: {2}\n" +
+                "• Tổng số vé bán: {3}\n" +
+                "• Tổng số vé hủy: {4}\n" +
+                "• Tổng doanh thu: {5}",
+                dtpNgayBD.Value.ToString("dd/MM/yyyy"), dtpNgayKT.Value.ToString("dd/MM/yyyy"),
+                soNgay, lblTongVeBanVal.Text, lblTongVeHuyVal.Text, lblTongDoanhThuVal.Text),
+                "Kết quả thống kê", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ThongKeDoanhThuNgay()
@@ -138,6 +147,12 @@ namespace QuanLyTau
         private void btnThongKeTuyen_Click(object sender, EventArgs e)
         {
             ThongKeDoanhThuTuyen();
+            int soTuyen = dgvDoanhThuTuyen.Rows.Count;
+            MessageBox.Show(string.Format("Đã cập nhật thống kê doanh thu theo tuyến ({0} - {1}):\n" +
+                "• Số tuyến được thống kê: {2} tuyến\n" +
+                "Dữ liệu doanh thu từng tuyến đã hiển thị trên bảng.",
+                dtpTuyenBD.Value.ToString("dd/MM/yyyy"), dtpTuyenKT.Value.ToString("dd/MM/yyyy"), soTuyen),
+                "Kết quả thống kê", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ThongKeDoanhThuTuyen()
@@ -189,6 +204,12 @@ namespace QuanLyTau
         private void btnThongKeBaoTri_Click(object sender, EventArgs e)
         {
             ThongKeBaoTri();
+            MessageBox.Show(string.Format("Đã cập nhật thống kê chi phí bảo trì ({0} - {1}):\n" +
+                "• Tổng số lượt bảo trì: {2}\n" +
+                "• Tổng kinh phí bảo dưỡng: {3}",
+                dtpBTBD.Value.ToString("dd/MM/yyyy"), dtpBTKT.Value.ToString("dd/MM/yyyy"),
+                lblTongLuotBTVal.Text, lblTongChiPhiBTVal.Text),
+                "Kết quả thống kê", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ThongKeBaoTri()
