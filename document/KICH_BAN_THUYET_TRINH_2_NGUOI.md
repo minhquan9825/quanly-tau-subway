@@ -121,9 +121,14 @@ flowchart TD
   > *"Trước tiên, em đăng nhập bằng tài khoản Quản trị viên (`admin`). Giao diện Trang chủ `FrmTrangChu` mở ra với các khối số liệu thống kê tổng quan: số tuyến đang mở, số đoàn tàu sẵn sàng vận hành và doanh thu trong ngày."*
 
 #### Bước 2: Kiểm tra Hạ tầng Tuyến và Nhà ga
-* **Thao tác:** Nhấp Menu **Quản lý Tuyến** (`FrmQuanLyTuyen`) ➔ Chọn Tuyến 1 (`Bến Thành - Suối Tiên`) ➔ Mở **Chi tiết tuyến** (`FrmChiTietTuyen`).
+* **Thao tác:**  
+  1. Nhấp Menu **Quản lý Tuyến** (`FrmQuanLyTuyen`): Giới thiệu danh mục các tuyến đường sắt đô thị (Tuyến 01: Bến Thành - Suối Tiên, Tuyến 02: Bến Thành - Tham Lương, Tuyến 03: Cát Linh - Hà Đông).  
+  2. Bấm chọn Tuyến 1 ➔ Bấm nút **Xem Các Ga Dừng Của Tuyến** (mở `FrmChiTietTuyen`).  
+  3. Màn hình chi tiết mở ra: Giới thiệu lộ trình 7 nhà ga dừng đỗ chuẩn xác của Tuyến 1 (Ga Bến Thành ➔ Nhà hát Thành phố ➔ Ba Son ➔ Văn Thánh ➔ Tân Cảng ➔ Thảo Điền ➔ Suối Tiên).  
+  4. Chỉ vào thẻ tóm tắt phía trên: *"Tổng số ga: 7 | Ga đầu: Ga Bến Thành | Ga cuối: Ga Suối Tiên"*.  
+  5. Demo cập nhật nhanh: Nhấp chọn Ga Bến Thành trên bảng ➔ Thay đổi Phút dừng thành `4` ➔ Bấm **Cập nhật** ➔ Thông báo cập nhật thành công và số phút dừng trên lưới được cập nhật ngay lập tức.
 * **Lời nói:**  
-  > *"Ở phân hệ Hạ tầng, hệ thống quản lý danh sách tuyến và các chặng dừng. Tuyến số 1 có các nhà ga từ Bến Thành, Nhà hát TP, Ba Son... được sắp xếp thứ tự và tính khoảng cách chuẩn xác để làm căn cứ tính cước vé sau này."*
+  > *"Ở phân hệ Hạ tầng, hệ thống quản lý danh mục tuyến và cấu hình lộ trình các ga dừng đỗ. Tuyến số 1 Metro TP.HCM gồm 7 nhà ga từ Bến Thành đến Suối Tiên được sắp xếp thứ tự chuẩn xác kèm thời gian dừng đỗ 2 đến 3 phút tại mỗi ga. Người quản trị có thể dễ dàng điều chỉnh thời gian dừng đỗ hoặc sắp xếp lại thứ tự đón trả khách theo thực tế vận hành."*
 
 #### Bước 3: Quản lý Phương tiện & Đồng bộ Bảo dưỡng kỹ thuật
 * **Thao tác:** Mở **Quản lý Tàu** (`FrmQuanLyTau`) ➔ Thấy tàu `SE01` đang ở trạng thái `Sẵn sàng`.  
@@ -133,10 +138,15 @@ flowchart TD
   > *"Tiếp theo là phân hệ kỹ thuật: Tàu `SE01` ban đầu sẵn sàng chạy. Khi đội ngũ kỹ thuật lập phiếu bảo dưỡng định kỳ trên `FrmBaoTri`, trạng thái của tàu trên `FrmQuanLyTau` lập tức được đồng bộ sang 'Đang bảo dưỡng'. Nhờ đó, điều độ viên sẽ không thể vô ý xếp một đoàn tàu đang bảo trì vào lịch chạy, đảm bảo an toàn tuyệt đối."*
 
 #### Bước 4: Lập Lịch trình & Tự động sinh Chuyến tàu trong ngày
-* **Thao tác:** Mở **Lịch trình** (`FrmLichTrinh`) ➔ Xem các khung giờ chạy định kỳ theo ngày trong tuần.  
-  Mở **Chuyến tàu** (`FrmChuyenTau`) ➔ Bấm nút **Sinh chuyến** hoặc hiển thị danh sách các chuyến tàu thực tế hôm nay.
+* **Thao tác:**  
+  1. Nhấp Menu **Lịch trình** (`FrmLichTrinh`): Xem danh mục các khung giờ xuất phát định kỳ theo tuần (T2 đến CN).  
+  2. Tại thanh công cụ phía trên: Mục *"Sinh chuyến chạy cho ngày:"*, chọn ngày mai (ví dụ: `17/11/2026`).  
+  3. Bấm nút **⚡ Tự Động Sinh Chuyến Ngày Này** ➔ Hộp thoại xác nhận hiện ra ➔ Bấm **Yes**.  
+  4. Hệ thống gọi thủ tục lưu trữ `sp_SinhChuyen` và thông báo: *"Đã sinh chuyến thành công qua thủ tục sp_SinhChuyen! Số chuyến sinh mới: 10"*.  
+  5. Bấm nút **Xem Các Chuyến Tàu Đã Sinh** (hoặc mở Menu `FrmChuyenTau`): Màn hình `FrmChuyenTau` mở ra và đã tự động chọn ngày `17/11/2026`, hiển thị đầy đủ danh sách 10 chuyến tàu vừa được tạo cho ngày 17/11!  
+  6. Demo phân công lái tàu: Nhấp chọn chuyến đầu tiên ➔ Chọn lái tàu từ danh sách (ví dụ: `Nguyễn Văn Lái`) ➔ Bấm nút **Phân Công Lái Tàu** ➔ Tên lái tàu lập tức hiển thị trên danh sách chuyến.
 * **Lời nói:**  
-  > *"Để giảm thiểu thao tác nhập liệu thủ công mỗi sáng, hệ thống có tính năng sinh chuyến tự động bằng Stored Procedure `sp_SinhChuyen`. Hệ thống tự động quét khung giờ lịch trình để tạo các chuyến chạy cụ thể trong ngày kèm số lượng ghế trống ban đầu."*
+  > *"Để tối ưu hóa thời gian vận hành và tránh thao tác nhập liệu thủ công mỗi sáng, hệ thống tích hợp thủ tục lưu trữ `sp_SinhChuyen`. Điều độ viên chỉ cần chọn ngày, hệ thống sẽ tự động đối chiếu lịch trình định kỳ trong tuần và sinh toàn bộ các chuyến tàu thực tế trong ngày, đồng thời tự động kiểm tra chống trùng lặp lịch chạy. Ngay sau đó, trên màn hình Chuyến tàu, người quản lý có thể phân công trực tiếp nhân viên lái tàu cho từng chuyến một cách trực quan."*
 
 #### Bước 5: Điểm bán vé POS tại quầy (Smart Ticketing)
 * **Thao tác:** Mở màn hình **Bán vé** (`FrmBanVe`):

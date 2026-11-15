@@ -278,9 +278,19 @@ namespace QuanLyTau
             {
                 SqlParameter[] spP = new SqlParameter[] { new SqlParameter("@NgayChay", ngayChon) };
                 DataTable dtSP = Ketnoi_CSDL.ExecuteProcedure("sp_SinhChuyen", spP);
-                if (dtSP != null)
+                if (dtSP != null && dtSP.Rows.Count > 0)
                 {
-                    MessageBox.Show("Đã sinh chuyến thành công qua thủ tục sp_SinhChuyen!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int soChuyen = Convert.ToInt32(dtSP.Rows[0][0]);
+                    if (soChuyen > 0)
+                    {
+                        MessageBox.Show(string.Format("Đã sinh chuyến thành công qua thủ tục sp_SinhChuyen!\n- Ngày chạy: {0}\n- Số chuyến sinh mới: {1}",
+                            ngayChon.ToString("dd/MM/yyyy"), soChuyen), "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Format("Các chuyến tàu cho ngày {0} đã được sinh trước đó (không có chuyến mới được tạo thêm)!",
+                            ngayChon.ToString("dd/MM/yyyy")), "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     return;
                 }
             }
@@ -352,7 +362,7 @@ namespace QuanLyTau
 
         private void btnXemChuyenTau_Click(object sender, EventArgs e)
         {
-            FrmChuyenTau f = new FrmChuyenTau();
+            FrmChuyenTau f = new FrmChuyenTau(dtpNgaySinhChuyen.Value.Date);
             f.ShowDialog();
         }
 

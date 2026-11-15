@@ -46,15 +46,43 @@ namespace QuanLyTau
 
         private void LoadDanhSachGa()
         {
-            string sql = "SELECT MaGa, TenGa FROM Ga WHERE TrangThai = N'Hoạt động' ORDER BY TenGa ASC";
-            DataTable dt = Ketnoi_CSDL.ExecuteQuery(sql);
-            cboGa.DataSource = dt;
-            cboGa.DisplayMember = "TenGa";
+            if (cboTuyen.SelectedValue == null || cboTuyen.SelectedValue is DataRowView)
+            {
+                string sql = "SELECT MaGa, TenGa + ' (' + ISNULL(DiaChi, '') + ')' AS TenGaHienThi FROM Ga WHERE TrangThai = N'Hoạt động' ORDER BY TenGa ASC";
+                DataTable dt = Ketnoi_CSDL.ExecuteQuery(sql);
+                cboGa.DataSource = dt;
+                cboGa.DisplayMember = "TenGaHienThi";
+                cboGa.ValueMember = "MaGa";
+                return;
+            }
+
+            int maTuyen = Convert.ToInt32(cboTuyen.SelectedValue);
+            string sqlKhuVuc = "SELECT TOP 1 g.DiaChi FROM Tuyen_Ga tg JOIN Ga g ON tg.MaGa = g.MaGa WHERE tg.MaTuyen = @MaTuyen";
+            object diaChiMau = Ketnoi_CSDL.ExecuteScalar(sqlKhuVuc, new SqlParameter[] { new SqlParameter("@MaTuyen", maTuyen) });
+
+            string sqlGa;
+            if (diaChiMau != null && diaChiMau.ToString().Contains("TP.HCM"))
+            {
+                sqlGa = "SELECT MaGa, TenGa + ' (' + ISNULL(DiaChi, '') + ')' AS TenGaHienThi FROM Ga WHERE TrangThai = N'Hoạt động' AND DiaChi LIKE N'%TP.HCM%' ORDER BY TenGa ASC";
+            }
+            else if (diaChiMau != null && diaChiMau.ToString().Contains("Hà Nội"))
+            {
+                sqlGa = "SELECT MaGa, TenGa + ' (' + ISNULL(DiaChi, '') + ')' AS TenGaHienThi FROM Ga WHERE TrangThai = N'Hoạt động' AND DiaChi LIKE N'%Hà Nội%' ORDER BY TenGa ASC";
+            }
+            else
+            {
+                sqlGa = "SELECT MaGa, TenGa + ' (' + ISNULL(DiaChi, '') + ')' AS TenGaHienThi FROM Ga WHERE TrangThai = N'Hoạt động' ORDER BY TenGa ASC";
+            }
+
+            DataTable dtGa = Ketnoi_CSDL.ExecuteQuery(sqlGa);
+            cboGa.DataSource = dtGa;
+            cboGa.DisplayMember = "TenGaHienThi";
             cboGa.ValueMember = "MaGa";
         }
 
         private void cboTuyen_SelectedIndexChanged(object sender, EventArgs e)
         {
+            LoadDanhSachGa();
             LoadGaDungCuaTuyen();
         }
 

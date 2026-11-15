@@ -9,15 +9,22 @@ namespace QuanLyTau
     public partial class FrmChuyenTau : Form
     {
         private int _maTauHienTai = 0;
+        private DateTime? _ngayKhoiTao = null;
 
         public FrmChuyenTau()
         {
             InitializeComponent();
         }
 
+        public FrmChuyenTau(DateTime ngayChon)
+        {
+            InitializeComponent();
+            _ngayKhoiTao = ngayChon;
+        }
+
         private void FrmChuyenTau_Load(object sender, EventArgs e)
         {
-            dtpLocNgay.Value = DateTime.Today;
+            dtpLocNgay.Value = _ngayKhoiTao.HasValue ? _ngayKhoiTao.Value : DateTime.Today;
             cboLocTrangThai.SelectedIndex = 0;
             LoadDanhSachLaiTau();
             KiemTraPhanQuyenLaiTau();
